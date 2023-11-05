@@ -13,7 +13,7 @@ const App = () => {
     queryKey: ['anecdotes'],
     queryFn: getAnecdotes
   })
-  
+  console.log('completed exercise 6.20')
   console.log(JSON.parse(JSON.stringify(result)))
   if ( result.isLoading ) {
     return <div>loading data...</div>
