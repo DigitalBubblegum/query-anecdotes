@@ -11,14 +11,18 @@ const App = () => {
 
   const result = useQuery({
     queryKey: ['anecdotes'],
-    queryFn: getAnecdotes
+    queryFn: getAnecdotes,
+    retry: 3
   })
   console.log('completed exercise 6.20')
   console.log(JSON.parse(JSON.stringify(result)))
   if ( result.isLoading ) {
     return <div>loading data...</div>
   }
-  const anecdotes = result.data
+  if( result.isError ) {
+    return <div>anecdote service is unavailable due to problems in the server</div>
+  }
+  const anecdotes = result.data||null
 
   return (
     <div>
@@ -27,7 +31,10 @@ const App = () => {
       <Notification />
       <AnecdoteForm />
     
-      {anecdotes.map(anecdote =>
+      {
+      anecdotes===null?
+      console.log('anecdote unavailable'):
+      anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
@@ -37,7 +44,8 @@ const App = () => {
             <button onClick={() => handleVote(anecdote)}>vote</button>
           </div>
         </div>
-      )}
+      )
+    }
     </div>
   )
 }
