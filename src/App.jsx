@@ -17,6 +17,7 @@ const notificationReducer = (state,action) => {
     case "VOTINOTI":
       return(`voted for ${action.payload}`)
     case "ERRORNOTI":
+      console.log('completed exercise 6.24')
       return action.payload
   }
 }
